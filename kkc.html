@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Кликай макаку</title>
+
+    <!-- Добавление фавикона -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: impact;
+            background-image: url('kkf.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .tap-target {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background-image: url('kki.png');
+            background-size: cover;
+            cursor: pointer;
+        }
+
+        .score {
+            position: absolute;
+            top: -15%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 30px;
+            color: white;
+            z-index: 1;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .score {
+                font-size: 25px; /* Меньший шрифт для мобильного устройства */
+            }
+        }
+
+        /* Стили для кнопки */
+        button {
+            position: absolute;
+            top: 150px; /* Размещаем кнопку выше */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 18px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            opacity: 0.7; /* Прозрачность кнопки по умолчанию */
+        }
+
+        @media only screen and (max-width: 600px) {
+            button {
+                font-size: 16px; /* Меньший шрифт для мобильного устройства */
+                padding: 10px 20px; /* Меньшая площадь кнопки */
+            }
+        }
+
+        button:hover {
+            background-color: #45a049;
+            opacity: 1; /* Повышаем прозрачность при наведении */
+        }
+
+        /* Надпись над кнопкой */
+        .sound-label {
+            position: absolute;
+            top: 90px; /* Располагаем надпись выше кнопки */
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 21px;
+            color: #fff;
+            text-align: center;
+            max-width: 250px;
+        }
+
+        @media only screen and (max-width: 600px) {
+            .sound-label {
+                font-size: 17px; /* Меньший шрифт для мобильного устройства */
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Элемент, по которому будем кликать -->
+    <div class="tap-target" onclick="incrementScore()">
+        <div class="score" id="score">0</div>
+    </div>
+
+    <!-- Надпись над кнопкой -->
+    <p class="sound-label">Макака пёрнет для вас</p>
+
+    <!-- Кнопка для воспроизведения звука -->
+    <button id="soundButton" onclick="playSound()">Пёрнуть</button>
+
+    <!-- Скрытый аудиоплеер -->
+    <audio id="myAudio" preload="auto">
+        <source src="sound.mp3" type="audio/mpeg">
+        Ваш браузер не поддерживает воспроизведение звука.
+    </audio>
+
+    <!-- Скрипт для подсчёта очков и воспроизведения звука -->
+    <script>
+        var score = 0;
+
+        // Функция увеличения счёта
+        function incrementScore() {
+            score += 1;
+            document.getElementById('score').innerText = score;
+        }
+
+        // Функция воспроизведения звука
+        function playSound() {
+            const audio = document.getElementById("myAudio");
+            audio.play(); // Воспроизводим звук
+        }
+
+        // Подключение к Telegram Web App API
+        window.Telegram.WebApp.ready();
+    </script>
+</body>
+</html>
